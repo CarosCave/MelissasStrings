@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.31)
-project(MellissasStrings)
+project(MelissasStrings)
 
 set(CMAKE_CXX_STANDARD 20)
 
 # Test-Executable für Main
-add_executable(MellissasStrings main.cpp
+add_executable(MelissasStrings main.cpp
         String.cpp
         String.hpp)
 
 # Test-Executable für GoogleTest
 
-add_executable(MellissasStringsTests
+add_executable(MelissasStringsTests
         String.cpp
         String.hpp
         CarosTests.cpp)
@@ -26,6 +26,6 @@ FetchContent_MakeAvailable(googletest)
 
 # Now simply link against gtest or gtest_main as needed. Eg
 
-target_link_libraries(MellissasStrings gtest_main)
-target_link_libraries(MellissasStringsTests gtest_main)
+target_link_libraries(MelissasStrings gtest_main)
+target_link_libraries(MelissasStringsTests gtest_main)
 add_test(NAME example_test COMMAND example)

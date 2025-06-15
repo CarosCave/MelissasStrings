@@ -28,13 +28,19 @@ namespace StringKlasse {
 
     String::String() : zeichenkette(nullptr), laenge(0) {}
 
-    String::String(const char* input) {
+    String::String(char const * input) { // Caro
+    //String::String(const char * input) {
 
-        laenge = strLength(input);
-        zeichenkette = umwandelnInCharArray(input);
-    };
+        //laenge = strLength(input);
+        //zeichenkette = umwandelnInCharArray(input);
 
-    String::String(char const input) {
+        zeichenkette = new char[strLength(input) + 1];
+        strCopy(zeichenkette, input);
+        laenge = strLength(zeichenkette);
+    }
+
+    String::String(char input) {
+    //String::String(char const input) {
 
         laenge = 1;
         zeichenkette = umwandelnInCharArray(input);
@@ -44,18 +50,21 @@ namespace StringKlasse {
 
     String::~String() {
         //delete[] zeichenkette;
-    };
+    }
 
     //----------Zuweisungs Operatoren------------------------------
 
-    String & String::operator=(char const & input) {
+    //String & String::operator=(char const & input) {
+    String & String::operator=(char input) {  // Caro
         //Aktuelle Zeichenkette wird gelöscht, damit sie überschrieben werden kann
         delete[] zeichenkette;
         //Neue Länge der Zeichenkette
-        laenge = strLength(&input);
+        //laenge = strLength(input);
+        laenge = 1; // Caro
         //Neue Zeichenkette
         zeichenkette = new char[laenge + 1];
-        strCopy(zeichenkette, &input);
+        //strCopy(zeichenkette, &input);
+        strCopy(zeichenkette, String(input).zeichenkette); // Caro
         return *this;
     }
 
@@ -101,7 +110,7 @@ namespace StringKlasse {
         else {
             return false;
         }
-    };
+    }
 
     bool String::operator!=(String const & input) const {
         //Zeichenkette durchlaufen, um zu gucken, ob alle Zeichen gleich sind
@@ -118,7 +127,7 @@ namespace StringKlasse {
         else {
             return true;
         }
-    };
+    }
 
     // bool String::operator<(String const & input) const {
     //
@@ -204,18 +213,18 @@ namespace StringKlasse {
     String & String::operator+=(String const & input) {
         *this = *this + input;
         return *this;
-    };
+    }
 
     String & String::operator+=(char* const & input) {
         String string(input);
         *this = *this + string;
         return *this;
-    };
+    }
 
     String & String::operator+=(char input) {
         *this = *this + input;
         return *this;
-    };
+    }
 
     String String::operator+(String const & input) {
         String string;
@@ -234,13 +243,13 @@ namespace StringKlasse {
         //Das Ende des Char Arrays definieren
         string.zeichenkette[neueLaenge] = '\0';
         return string;
-    };
+    }
 
     String String::operator+(char* const & input) {
         String string(input);
         String newString = *this + string;
         return newString;
-    };
+    }
 
     /*
     * Erst hatte ich überlegt, selbst ein Leerzeichen zwischen den Wörtern hinzuzufügen, aber in der normalen Verwendung von Strings,
@@ -262,7 +271,7 @@ namespace StringKlasse {
         //Das Ende des Char Arrays definieren
         string.zeichenkette[neueLaenge] = '\0';
         return string;
-    };
+    }
 
     //----------Allgemeine Operatoren----------------------------------------------------
 
@@ -279,27 +288,44 @@ namespace StringKlasse {
 
     String String::toUpper() const {
         String string(*this);
-        for (int i = 0; this->zeichenkette[i] != '\0'; i++) {
-            if (this->zeichenkette[i] >= 'A' && this->zeichenkette[i] <= 'Z') {
-                this->zeichenkette[i] = this->zeichenkette[i] - 32;
+        // Caro
+        // this->zeichenkette verändert die ursprüngliche Variable, obwohl const versprochen wurde
+        // Zusätzlich werden hier Großbuchstaben überprüft. Dies sollten Kleinbuchstaben sein
+        // for (int i = 0; this->zeichenkette[i] != '\0'; i++) {
+        //     if (this->zeichenkette[i] >= 'A' && this->zeichenkette[i] <= 'Z') {
+        //         this->zeichenkette[i] = this->zeichenkette[i] - 32;
+        //     }
+        // }
+
+        for (int i = 0; string.zeichenkette[i] != '\0'; i++) {
+            if (string.zeichenkette[i] >= 'a' && string.zeichenkette[i] <= 'z') {
+                string.zeichenkette[i] = string.zeichenkette[i] - 32;
             }
         }
 
         return string;
-    };
+    }
 
     String String::toLower() const {
         String string(*this);
-        for (int i = 0; this->zeichenkette[i] != '\0'; i++) {
-            if (this->zeichenkette[i] >= 'A' && this->zeichenkette[i] <= 'Z') {
-                this->zeichenkette[i] = this->zeichenkette[i] + 32;
+        // Caro -> identisch mit toUpper()
+        // for (int i = 0; this->zeichenkette[i] != '\0'; i++) {
+        //     if (this->zeichenkette[i] >= 'A' && this->zeichenkette[i] <= 'Z') {
+        //         this->zeichenkette[i] = this->zeichenkette[i] + 32;
+        //     }
+        // }
+
+        for (int i = 0; string.zeichenkette[i] != '\0'; i++) {
+            if (string.zeichenkette[i] >= 'A' && string.zeichenkette[i] <= 'Z') {
+                string.zeichenkette[i] = string.zeichenkette[i] + 32;
             }
         }
 
         return string;
-    };
+    }
 
-    char* String::umwandelnInCharArray(char const input) {
+    char* String::umwandelnInCharArray(char input) { // Caro
+    //char* String::umwandelnInCharArray(char const input) {
 
         //Neues Array mit der herausgefundenen Länge anlegen
         char* arr = new char[2];
@@ -311,30 +337,33 @@ namespace StringKlasse {
         arr[1] = '\0';
 
         return arr;
-    };
+    }
 
-    char* String::umwandelnInCharArray(const char* input) {
-
+    char* String::umwandelnInCharArray(char const * input) {
+    
         int newLaenge = strLength(input);
-
+    
         //Neues Array mit der herausgefundenen Länge anlegen
-        char* arr = new char[laenge + 1];
-
+        // char* arr = new char[laenge + 1]; 
+        char* arr = new char[newLaenge + 1]; // Caro
+    
         //Den Input, der übergeben wurde, in das neu angelegte Array hinzufügen
-        for (int i = 0; i < laenge; i++) {
+        // for (int i = 0; i < laenge; i++) {
+        for (int i = 0; i < newLaenge; i++) { // Caro
             arr[i] = input[i];
         }
-
+    
         //Das Ende des Char Arrays definieren
-        arr[laenge] = '\0';
-
+        // arr[laenge] = '\0';
+        arr[newLaenge] = '\0'; // Caro
+    
         return arr;
-    };
+    }
 
-    String String::umwandeVonCharArray(char* const input){
+    String String::umwandleVonCharArray(char* const input){
         String newString(input);
         return newString;
-    };
+    }
 }
 
 

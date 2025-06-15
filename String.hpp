@@ -47,7 +47,8 @@ namespace StringKlasse {
         ~String();
 
         //--------------Zuweisungs Operatoren--------------
-        String & operator=(char const &);
+        String & operator=(char); // Caro
+        //String & String::operator=(char const &);
         String & operator=(char* const &);
         String & operator=(String const &);
 
@@ -75,13 +76,18 @@ namespace StringKlasse {
         int getLength();
         String toUpper() const;
         String toLower() const;
-        char* umwandelnInCharArray(char const);
-        char* umwandelnInCharArray(const char*);
-        String umwandeVonCharArray(char* const);
+
+        static char* umwandelnInCharArray(char); // Caro
+        static char* umwandelnInCharArray(char const *); // Caro
+        static String umwandleVonCharArray(char * const); // Caro
+        
+        //char* umwandelnInCharArray(char const);
+        //char* umwandelnInCharArray(const char*);
+        //String umwandleVonCharArray(char* const);
 
         //--------------IO-Stream--------------
         /*
-        * Ein - und Ausgabe wird in der Headerdatei implementiert, da es sich um kleine Methden handelt.
+        * Ein - und Ausgabe wird in der Headerdatei implementiert, da es sich um kleine Methoden handelt.
         * Dies verbessert die Performance, da ein Funktionsaufruf wegfällt.
         * Außerdem werden die Methoden als friend deklariert, damit der Zugriff auf private Member möglich ist.
         */
