@@ -43,7 +43,7 @@ namespace StringKlasse {
         //Kopier-Konstruktor, wenn String übergeben wird
         String(String const &);
 
-        //Dekonstruktor
+        //Destruktor
         ~String();
 
         //--------------Zuweisungs Operatoren--------------
@@ -55,13 +55,13 @@ namespace StringKlasse {
         //--------------Vergleichs Operatoren--------------
         bool operator==(String const &) const;
         bool operator!=(String const &) const;
-        //bool operator<(String const &) const;
-        //bool operator>(String const &) const;
-        //bool operator<=(String const &) const;
-        //bool operator>=(String const &) const;
+        bool operator<(String const &) const;
+        bool operator>(String const &) const;
+        bool operator<=(String const &) const;
+        bool operator>=(String const &) const;
 
         //--------------Zugriffs Operatoren--------------
-        //char operator[](int) const;
+        char operator[](int) const;
 
         //--------------Verkettung Operatoren--------------
         String & operator+=(String const & string);
@@ -96,7 +96,7 @@ namespace StringKlasse {
                 os << str.zeichenkette[i];
             }
 
-            os << std::endl;
+            //os << std::endl; Caro
             return os;
         }
 
@@ -106,7 +106,7 @@ namespace StringKlasse {
             }
             return is;
         }
-    };
+    }; // End Class
 }
 
 #endif // STRING_H

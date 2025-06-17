@@ -129,84 +129,96 @@ namespace StringKlasse {
         }
     }
 
-    // bool String::operator<(String const & input) const {
-    //
-    //     //Erstmal alle Zeichen in Kleinbuchstaben ändern, um den Zahlenwert dahinter vergleichen zu können
-    //     String this_string = toLower();
-    //     String str = input.toLower();
-    //
-    //     //Kürzeres Wort herausfinden, um damit anzufangen
-    //     int kuerzeresWort = this->laenge < input.laenge ? this->laenge : input.laenge;
-    //     for (int i = 0; i < kuerzeresWort; i++) {
-    //         int buchstabe1 = this->zeichenkette[i];
-    //         int buchstabe2 = input.zeichenkette[i];
-    //
-    //         if (buchstabe1 > buchstabe2) {
-    //             return false;
-    //         }
-    //         else if (buchstabe1 < buchstabe2) {
-    //             return true;
-    //         }
-    //         else if (buchstabe1 == buchstabe2) {
-    //             continue;
-    //         }
-    //     }
-    // };
+    bool String::operator<(String const & input) const {
+    
+        //Erstmal alle Zeichen in Kleinbuchstaben ändern, um den Zahlenwert dahinter vergleichen zu können
+        String this_string = toLower();
+        String str = input.toLower();
+    
+        //Kürzeres Wort herausfinden, um damit anzufangen
+        int kuerzeresWort = this_string.laenge < str.laenge ? this_string.laenge : str.laenge;
+        //int kuerzeresWort = this->laenge < input.laenge ? this->laenge : input.laenge;
+        for (int i = 0; i < kuerzeresWort; i++) {
+            // int buchstabe1 = this->zeichenkette[i];
+            // int buchstabe2 = input.zeichenkette[i];
+            int buchstabe1 = this_string.zeichenkette[i]; // Caro
+            int buchstabe2 = str.zeichenkette[i]; // Caro
+    
+            if (buchstabe1 > buchstabe2) {
+                return false;
+            }
+            return true; // Caro
+            // else if (buchstabe1 < buchstabe2) {
+            //     return true;
+            // }
+            // else if (buchstabe1 == buchstabe2) {
+            //     continue;
+            // }
+        }
+    }
 
-    // bool String::operator>(String const & string) const {
-    //
-    //     //Erstmal alle Zeichen in Kleinbuchstaben ändern, um den Zahlenwert dahinter vergleichen zu können
-    //     String this_string = toLower();
-    //     String str = string.toLower();
-    //
-    //     //Kürzeres Wort herausfinden, um damit anzufangen
-    //     int kuerzeresWort = this->laenge < string.laenge ? this->laenge : string.laenge;
-    //     for (int i = 0; i < kuerzeresWort; i++) {
-    //         int buchstabe1 = this->zeichenkette[i];
-    //         int buchstabe2 = string.zeichenkette[i];
-    //
-    //         if (buchstabe1 < buchstabe2) {
-    //             return false;
-    //         }
-    //         else if (buchstabe1 > buchstabe2) {
-    //             return true;
-    //         }
-    //         else if (buchstabe1 == buchstabe2) {
-    //             continue;
-    //         }
-    //     }
-    // };
+    bool String::operator>(String const & string) const {
+    
+        //Erstmal alle Zeichen in Kleinbuchstaben ändern, um den Zahlenwert dahinter vergleichen zu können
+        String this_string = toLower();
+        String str = string.toLower();
+    
+        //Kürzeres Wort herausfinden, um damit anzufangen
+        int kuerzeresWort = this_string.laenge < str.laenge ? this_string.laenge : str.laenge;
+        // int kuerzeresWort = this->laenge < string.laenge ? this->laenge : string.laenge;
+        for (int i = 0; i < kuerzeresWort; i++) {
+            int buchstabe1 = this_string.zeichenkette[i]; // Caro
+            int buchstabe2 = str.zeichenkette[i]; // Caro
+            
+            // int buchstabe1 = this->zeichenkette[i];
+            // int buchstabe2 = string.zeichenkette[i];
+    
+            if (buchstabe1 < buchstabe2) {
+                return false;
+            }
+            return true; // Caro
+            // else if (buchstabe1 > buchstabe2) {
+            //     return true;
+            // }
+            // else if (buchstabe1 == buchstabe2) {
+            //     continue;
+            // }
+        }
+    }
 
-    // bool String::operator<=(String const & input) const {
-    //     //Hier können die bereits implementierten Operator-Methoden genutzt werden
-    //     if (*this == input || *this < input) {
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // };
-    //
-    // bool String::operator>=(String const & input) const {
-    //     //Hier können die bereits implementierten Operator-Methoden genutzt werden
-    //     if (*this == input || *this > input) {
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // };
+    bool String::operator<=(String const & input) const {
+        //Hier können die bereits implementierten Operator-Methoden genutzt werden
+        if (*this == input || *this < input) {
+            return true;
+        }
+        return false; // Caro
+        // else {
+        //     return false;
+        // }
+    }
+    
+    bool String::operator>=(String const & input) const {
+        //Hier können die bereits implementierten Operator-Methoden genutzt werden
+        if (*this == input || *this > input) {
+            return true;
+        }
+        return false; // Caro
+        // else {
+        //     return false;
+        // }
+    }
+    
 
     //----------Zugriffs Operatoren----------------------------------------------------
 
-    // char String::operator[](int index) const {
-    //     if (index >= 0 && index <= laenge - 1) {
-    //         return zeichenkette[index];
-    //     }
-    //     else {
-    //         std::cout << "Index out of range." << std::endl;
-    //     }
-    // };
+    char String::operator[](int index) const {
+        if (index >= 0 && index <= laenge - 1) {
+            return zeichenkette[index];
+        }
+        else {
+            std::cout << "Index out of range." << std::endl;
+        }
+    }
 
     //----------Verkettung Operatoren----------------------------------------------------
 

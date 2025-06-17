@@ -106,3 +106,97 @@ TEST(Vergleicher, Ungleich)
     EXPECT_EQ(a != b, true);
     EXPECT_EQ(a != c, false);
 }
+
+// ------------------------------------------------------------------------------------------------
+// Test größer und kleiner
+TEST(Vergleicher, Kleiner)
+{
+    String a{"AB"};
+    String b{"BC"};
+
+    EXPECT_EQ(a < b, true);
+    EXPECT_EQ(b < a, false);
+}
+
+TEST(Vergleicher, Groesser)
+{
+    String a{"AB"};
+    String b{"BC"};
+
+    EXPECT_EQ(a > b, false);
+    EXPECT_EQ(b > a, true);
+}
+
+TEST(Vergleicher, KleinerGleich)
+{
+    String a{"AB"};
+    String b{"BC"};
+    String c{"AB"};
+
+    EXPECT_EQ(a <= b, true);
+    EXPECT_EQ(a <= c, true);
+    EXPECT_EQ(b <= a, false);
+}
+
+TEST(Vergleicher, GroesserGleich)
+{
+    String a{"AB"};
+    String b{"BC"};
+    String c{"AB"};
+
+    EXPECT_EQ(a >= b, false);
+    EXPECT_EQ(b >= a, true);
+    EXPECT_EQ(a >= c, true);
+}
+
+TEST(String, Rueckgabe_Einzelnes_Zeichen_Aus_Array)
+{
+    String a{"Hallo"};
+    EXPECT_EQ(a[1], 'a');
+}
+
+TEST(Console, Output) {
+    // Beginne mit dem Erfassen der Konsolenausgabe
+    ::testing::internal::CaptureStdout();
+
+    String a("Maria");
+    std::cout << a;
+
+    // Beende die Erfassung und speichere die Ausgabe
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "Maria");
+}
+
+TEST(Console, Input_Char) {
+    // Beginne mit dem Erfassen der Konsoleneingabe
+    std::istringstream iss("M");
+
+    String a;
+    iss >> a;
+
+    EXPECT_EQ(a, "M");
+}
+
+TEST(Console, Input_String_Kleiner_8) {
+    // Beginne mit dem Erfassen der Konsoleneingabe
+    std::istringstream iss("Maria");
+
+    String a;
+    iss >> a;
+
+    EXPECT_EQ(a, "Maria");
+}
+
+TEST(Console, Input_String_Groesser_8) {
+    // Beginne mit dem Erfassen der Konsoleneingabe
+    std::istringstream iss("MariannenGraben");
+    std::streambuf *buf = iss.rdbuf();
+
+
+    String a;
+    iss >> a;
+
+    EXPECT_EQ(a, "MariannenGraben");
+
+}
